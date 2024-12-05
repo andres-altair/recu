@@ -12,3 +12,13 @@ export function crearFilaDesdeFormulario(nombre, email, horariosSeleccionados, c
     `;
     return nuevaFila; // Retorna la nueva fila creada
 }
+
+// funciones.js
+
+export function crearImagen(src) {
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'img-fluid'; // Clase de Bootstrap para que la imagen sea responsiva
+    img.alt = 'Imagen de la galería';
+    return img;
+}
