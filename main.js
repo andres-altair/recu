@@ -31,7 +31,36 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
     this.reset();
 });
 
+// Ampliar imagen y ocultar las demás usando el atributo hidden
+const imagenes = document.querySelectorAll('.img-fluid');
+const btnRegresar = document.getElementById('btn-regresar');
 
+imagenes.forEach(imagen => {
+    imagen.addEventListener('click', function() {
+        if (this.classList.contains('ampliada')) {
+            this.classList.remove('ampliada');
+            imagenes.forEach(img => img.hidden = false);
+            btnRegresar.hidden = true;
+        } else {
+            this.classList.add('ampliada');
+            imagenes.forEach(img => {
+                if (img !== this) {
+                    img.hidden = true;
+                }
+            });
+            btnRegresar.hidden = false;
+            const rect = this.getBoundingClientRect();
+            btnRegresar.style.position = 'absolute';
+            btnRegresar.style.top = `${window.scrollY + rect.bottom + 10}px`; // Posiciona debajo de la imagen
+            btnRegresar.style.left = `${window.scrollX + rect.left}px`;
+        }
+    });
+});
 
-
-
+btnRegresar.addEventListener('click', () => {
+    imagenes.forEach(img => {
+        img.classList.remove('ampliada');
+        img.hidden = false;
+    });
+    btnRegresar.hidden = true;
+});
